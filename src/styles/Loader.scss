@@ -1,0 +1,89 @@
+@import '../App.scss';
+
+@keyframes dollarMove {
+    0% {
+        top: -100%;
+        right: -90%;
+    }
+    15% {
+        top: -100%;
+        right: -90%;
+    }
+    50% {
+        top: 2.5%;
+        right: 25%;
+    }
+    70% {
+        top: 2.5%;
+        right: 25%;
+    }
+    95% {
+        top: 50%;
+        right: 100%;
+    }
+    100% {
+        top: 50%;
+        right: 100%;
+    }
+}
+@keyframes rubleMove {
+    0% {
+        bottom: -100%;
+        left: -100%;
+    }
+    5% {
+        bottom: -100%;
+        left: -100%;
+    }
+    40% {
+        bottom: 2.5%;
+        left: 25%;
+    }
+    60% {
+        bottom: 2.5%;
+        left: 25%;
+    }
+    85% {
+        bottom: 55%;
+        left: 100%;
+    }
+    100% {
+        bottom: 55%;
+        left: 100%;
+    }
+}
+
+.Loader-cash-wrapper {
+    position: relative;
+    height: 6rem;
+    width: 6rem;
+    background-color: rgba(255,255,255,.9);
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.Loader-cash-background {
+    fill: rgba(0, 0, 0, 0);
+}
+.Loader-cash-dollar-wrapper, .Loader-cash-ruble-wrapper {
+    height: 4rem;
+    width: 4rem;
+}
+.Loader-cash-dollar-wrapper {
+    position: absolute;
+    z-index: 10;
+    animation: dollarMove 3s infinite;
+}
+.Loader-cash-ruble-wrapper {
+    position: absolute;
+    z-index: 9;
+    animation: rubleMove 3s infinite;
+}
+.Loader-cash-dollar-el {
+    fill: $background-main-color;
+    //fill: $green-darker;
+}
+.Loader-cash-ruble-el {
+    fill: $background-main-color;
+    //fill: $green-darker;
+}

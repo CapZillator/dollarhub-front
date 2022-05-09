@@ -1,0 +1,28 @@
+@import '../App.scss';
+.AuthForm {
+    @include box-shadow-dark-standart;
+    background-color: $white-main;
+    color: $green-darker;
+    border-radius: $standart-border-radius;
+    padding: 0 2rem;
+    max-width: 20rem;
+   
+    > div {
+        margin-bottom: 1rem;
+    }
+    a, a:visited {
+        font-weight: bolder;
+        color: $green-darker;
+        border-bottom: 2px dotted $green-darker;
+    }
+}
+.Password-icon {
+    color: $green-darker;
+}
+.Password-label {
+    font-weight: 700;
+    color: $green-darker;
+}
+.Auth-logo-wrapper {
+    margin: 1.5rem 0 .5rem 0;
+}

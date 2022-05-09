@@ -1,0 +1,85 @@
+@import '../App.scss';
+
+.Logo-icon {
+    width: 2rem;
+    height: 2rem;
+    transition: $standart-transition;
+  
+    &:hover {
+      transition: .3s;
+      .Logo-icon-path1 {
+        fill: $green-darker;
+      }
+      .Logo-icon-path2 {
+        fill: $green-darker;
+      }
+    }
+  
+    .Logo-icon-path1 {
+      fill: $white-main;
+      stroke-width: 0.2809;
+      transition: $standart-transition;
+  
+    }
+    .Logo-icon-path2 {
+      fill: $white-main;
+      stroke-width: 0.19251;
+      transition: $standart-transition;
+    }
+}
+.Logo-icon-footer {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    transition: $standart-transition;
+  
+    &:hover {
+      transition: .3s;
+      .Logo-icon-footer-path1 {
+        fill: $grey-main;
+      }
+      .Logo-icon-footer-path2 {
+        fill: $grey-main;
+      }
+    }
+  
+    .Logo-icon-footer-path1 {
+      fill: $white-main;
+      stroke-width: 0.2809;
+      transition: $standart-transition;
+  
+    }
+    .Logo-icon-footer-path2 {
+      fill: $white-main;
+      stroke-width: 0.19251;
+      transition: $standart-transition;
+    }
+}
+  //Logo-icon-main
+.Logo-icon-main {
+    width: 5rem;
+    height: 5rem;
+    transition: $standart-transition;
+  
+    &:hover {
+      transition: .3s;
+      .Logo-icon-main-path1 {
+        fill: $green-lite;
+      }
+      .Logo-icon-main-path2 {
+        fill: $green-lite;
+      }
+    }
+  
+    .Logo-icon-main-path1 {
+      fill: $white-main;
+      stroke-width: 0.2809;
+      transition: $standart-transition;
+  
+    }
+    .Logo-icon-main-path2 {
+      fill: $white-main;
+      stroke-width: 0.19251;
+      transition: $standart-transition;
+    }
+}

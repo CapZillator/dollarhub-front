@@ -1,0 +1,171 @@
+@import '../App.scss';
+
+.Edit-wrapper, .Profile-edit-wrapper {
+    @include box-shadow-dark-standart;
+    @include flex-column-center;
+    background-color: $white-main;
+    border-radius: $standart-border-radius;
+    color: $green-darker;
+    padding: 0 1rem 1rem 1rem;
+    width: 16rem;
+
+    h1 {
+        margin: 1rem 0 0 0;
+    }
+    > div > div {
+        margin: 0 0 1rem 0;
+        &:last-of-type {
+            margin-top: 1rem;
+        }
+    }
+    label {
+        font-weight: 700;
+    }
+}
+/*
+.Profile-edit-wrapper {
+    > div:first-of-type {
+        margin-top: 1rem;
+    }
+    > div > div:last-of-type {
+        margin-top: 0;
+    }
+    .Profile-edit-main-block {
+        > div {
+            margin: 0;
+        }
+    }
+}
+*/
+.Prof-edit-wrapper {
+    background-color: $white-main;
+    border-radius: $standart-border-radius;
+    color: $green-darker;
+    padding: 1rem;
+    width: 16rem;
+    
+    .Prof-header-wrapper {
+        @include flex-row-center2;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        .Prof-header-icon {
+            margin-right: .5rem;
+        }
+    }
+    .Prof-edit-main-block {
+        margin: 0 auto;
+        width: fit-content;
+    }
+}
+.Edit-input-el {
+    width: 12rem;
+    color: $green-darker;
+
+    > div {
+        background-color: inherit;
+    }
+    label {
+        font-weight: 700;
+        color: $green-darker;
+    }
+    input {
+        font-weight: 700;
+        color: $green-darker;
+    }
+    .Edit-helper-text, .Edit-helper-text p {
+        color: $green-dark;
+    }
+}
+.City-list-wrapper {
+    position: relative;
+    width: 12rem;
+    margin: 0 auto;
+}
+/*
+.City-list-hint {
+    width: 12rem;
+    margin: 0;
+    @media screen and(max-width: $media-max-width) {
+        margin-left: 1.5rem;
+    }
+}
+*/
+.Currency-select {
+    width: 12rem;
+
+    .MuiSelect-select {
+        color: $green-darker;
+        font-weight: bold;
+    }
+    * {
+        color: $green-darker;
+    }
+    label {
+        font-weight: 700;
+    }
+}
+.Edit-header-wrapper {
+    @include flex-row-center;
+    font-size: 3rem;
+
+    h1 {
+        font-size: 2rem;
+        margin: 0;
+    }
+    .Edit-header-icon {
+        margin-right: .5rem;
+    }
+}
+
+.Several-buttons-column-wrapper {
+    @include flex-column-center;
+}
+.Edit-inline-left-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: bolder;
+
+    .Edit-icon {
+        margin-right: .5rem;
+        font-size: 1.5rem;
+    }
+}
+.Edit-inline-space-between {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.Mail-block {
+    margin-bottom: .5rem;
+}
+.Profile-select {
+    width: 12rem;
+    * {
+        color: $green-darker;
+    }
+}
+.Edit-edit-icon {
+    color: $green-darker;
+}
+.Edit-input-wrapper {
+    .MuiSelect-select {
+        color: $green-darker;
+        font-weight: bold;
+    }
+    > div {
+        margin: .5rem 0;
+    }
+}
+.Edit-profile-main-block {
+    > div {
+        margin: 0;
+    }
+}

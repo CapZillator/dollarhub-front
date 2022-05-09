@@ -1,0 +1,345 @@
+$green-lite: #72e250;
+$green-semilite: #5f9e4b;
+$green-ultralite: #79b667;
+$green-dark: #37861f;
+$green-darker: #265d15;
+$green-darkest: #0b1f05;
+$white-main: #fff;
+$main-dark: #282c34;
+$grey-main: #585858;
+$grey-lite: #757772;
+$error-red-color: #ce4848;
+$background-main-color: #4a5040;
+$grey-background: #e8ffe1;
+$standart-border-radius: .2rem;
+$standart-transition: .3s;
+$standart-padding-set: 1rem .5rem;
+$top-indent: 3rem;
+$media-max-width: 960px;
+$media-phone-width-limit: 400px;
+
+body {
+  background-color: $background-main-color;
+  //background-color: #282c34;
+}
+.App, .App-top-indent {
+  text-align: center;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+.App-top-indent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+
+  header {
+    margin-top: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+@mixin flex-row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+@mixin flex-row-center2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@mixin flex-column-space-between {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  justify-content: space-between;
+}
+
+@mixin box-shadow-dark-standart {
+  box-shadow: 0 0 .3rem .3rem rgba(0, 0, 0, .2);
+}
+.App-center-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Access-error-wrapper {
+  color: $white-main;
+}
+.Page-content-flex-wrapper {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center; /*Центрирование по горизонтали*/
+  align-items: center;   /*Центрирование по вертикали */
+}
+.Page-content-flex-wrapper-full-height {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center; 
+}
+.Auth-content-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.Full-screan-loader {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.App-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.Content-flex-column-space-between {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+}
+.Header-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+
+  .Header-icon {
+    margin-right: .25em;
+    color: $green-lite;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    text-transform: capitalize;
+    color: $green-lite;
+  }
+}
+.Page-main-header {
+  font-size: 4rem;
+  color: $green-lite;
+  margin: 0;
+}
+.Page-error-p {
+  font-size: 1.5rem;
+}
+.Button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.Button-standart {
+  color: $green-lite;
+}
+.In-row-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: .5rem;
+}
+
+.Info-icon {
+  margin-right: .5em;
+}
+.Proposal-id {
+  font-weight: bold;
+}
+.Proposal-id:nth-of-type(1){
+  margin-right: .5em;
+}
+.ShowContact, .HideContact {
+  background-color: $green-dark;
+  padding: 0 .5em .2em .5em;
+  margin-left: .5rem;
+  border-radius: .2rem;
+  cursor: pointer;
+}
+.HideContact {
+  cursor: auto;
+}
+
+.UserHeadBlockComponentWrapper {
+  display: flex;
+  align-items: center;
+}
+.ButtonLoader {
+  margin-right: .5em;
+}
+.Simple-button {
+  margin: 0 .5rem;
+}
+.Edit-Button {
+  margin: .25rem;
+}
+.Return-button {
+  margin-top: 1rem;
+}
+.Button-outlined {
+  font-weight: bold;
+}
+.Alone-button {
+  margin: 2rem 0;
+}
+.Buttons-group-wrapper {
+  Button {
+    margin: 0 .25rem;
+  }
+}
+.Standart-input {
+  width: 15rem;
+  > div {
+    background-color: $white-main;
+  }
+  label, input {
+    font-weight: 700;
+    color: $green-darker;
+  }
+}
+.Password-input {
+  width: 15rem;
+  background-color: $white-main;
+
+  label, input {
+    font-weight: 700;
+    color: $green-darker;
+  }
+}
+.Standart-select {
+  width: 15rem;
+
+  .MuiSelect-select {
+    color: $green-darker;
+    font-weight: bold;
+  }
+  * {
+      color: $green-darker;
+  }
+  label {
+      font-weight: 500;
+  }
+}
+.Alert-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+.Header-menu-wrapper {
+  @include box-shadow-dark-standart;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgb(55,134,31);
+  background: linear-gradient(90deg, rgba(55,134,31,1) 0%, rgba(101,167,48,1) 65%, rgba(146,187,44,1) 100%);
+  color: $white-main;
+
+  .Header-menu-auth-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .Left-side-wrapper {
+      margin-right: 1rem;
+    }
+  }
+  .Header-menu-icon {
+    
+    &:hover {
+      color: $green-darkest;
+    }
+  }
+  > div {
+    cursor: pointer;
+    margin: .5rem 1rem;
+  }
+}
+.Tooltip {
+  color: $white-main;
+  transition: .3s;
+  &:hover {
+    background-color: rgba(0,0,0,.2);
+  }
+}
+.Header-menu-auth-wrapper {
+  @include flex-row-center2;
+  
+  .Header-menu-person {
+    @include flex-row-center2;
+  }
+  .Auth-icon {
+    margin-right: .3rem;
+  }
+  > div {
+    margin-right: .3rem;
+  }
+}
+.Nav-page-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 1rem auto;
+
+  .Nav-page-link {
+    @include flex-row-center;
+    transition: $standart-transition;
+    cursor: pointer;
+
+    &:hover {
+      color: $green-lite;
+    }
+    > div {
+      transform: translateY(-10%);
+    }
+  }
+}
+.My-proposals {
+  @include flex-row-center2;
+  flex-wrap: wrap;
+}
+.css-i6gpf3-MuiSvgIcon-root-MuiSelect-icon, .css-g3hgs1-MuiBackdrop-root-MuiModal-backdrop {
+  color: $green-darker;
+}
+.Page-header-top-indent {
+  margin-top: $top-indent;
+}
+
+.Standart-circular-loader {
+  color: $white-main;
+}
