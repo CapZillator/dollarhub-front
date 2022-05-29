@@ -130,7 +130,7 @@ function EditAd() {
         setLocationHint(findCity(city, state.cityList));
     };
     const onChangeMinAmount = (e: any) => {
-        const amountVal = Number(e.target.value);
+        let amountVal = Number(e.target.value);
         setTimeout(() => {
             if (amountVal > maxAmount) {
                 addErr('invalidAmountProportion');
@@ -139,11 +139,12 @@ function EditAd() {
                 delErr('invalidAmountProportion');
             }
         }, 500);
+        amountVal = amountVal > 99999999 ? 99999999: amountVal;
         if (amountVal > 0) setMinAmount(amountVal);
         else setMinAmount(1);
     };
     const onChangeMaxAmount = (e: any) => {
-        const amountVal = Number(e.target.value);
+        let amountVal = Number(e.target.value);
         setTimeout(() => {
             if (minAmount > amountVal) {
                 addErr('invalidAmountProportion');
@@ -152,6 +153,7 @@ function EditAd() {
                 delErr('invalidAmountProportion');
             }
         }, 500);
+        amountVal = amountVal > 99999999 ? 99999999: amountVal;
         if (amountVal > 0) setMaxAmount(amountVal);
         else setMaxAmount(1);
     };
@@ -291,6 +293,7 @@ function EditAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">1{getCurrencyVal(curType)}</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>
@@ -303,6 +306,7 @@ function EditAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">От</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>
@@ -315,6 +319,7 @@ function EditAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">До</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>

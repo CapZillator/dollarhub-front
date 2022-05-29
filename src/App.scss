@@ -9,7 +9,7 @@ $main-dark: #282c34;
 $grey-main: #585858;
 $grey-lite: #757772;
 $error-red-color: #ce4848;
-$background-main-color: #4a5040;
+$background-main-color: #444640;
 $grey-background: #e8ffe1;
 $standart-border-radius: .2rem;
 $standart-transition: .3s;
@@ -25,7 +25,6 @@ body {
 .App, .App-top-indent {
   text-align: center;
   a {
-    color: white;
     text-decoration: none;
   }
 }
@@ -95,6 +94,57 @@ body {
   flex: 1 0 auto;
   display: flex;
   justify-content: center; 
+}
+.Confirm-email-wrapper {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  margin: 4rem 0 1rem 0;
+}
+.Confirm-content {
+  max-width: 24rem;
+
+  h1 {
+    margin: .25rem 0;
+    padding: 0;
+  }
+  .Confirm-email-icon {
+    font-size: 5em;
+  }
+  p {
+    text-align: left;
+    margin: 1rem;
+  }
+}
+.Confirm-input {
+  font-weight: bold;
+  color: $white-main;
+  width: 6rem;
+  margin-bottom: 1rem;
+  
+  .MuiInputBase-root, .MuiTextField-root, .MuiFormControl-root, .MuiInputLabel-root {
+    color: $white-main;
+  }
+  .MuiOutlinedInput-root fieldset {
+    border-color: $white-main;
+  }
+  .MuiOutlinedInput-root:hover fieldset {
+    border-color: $white-main;
+  }
+}
+.Standart-outline-input {
+  .MuiOutlinedInput-root fieldset {
+    border-color: $white-main;
+    transition: $standart-transition;
+  }
+  .MuiOutlinedInput-root:hover fieldset {
+    border-color: $white-main;
+  }
+  .MuiOutlinedInput-root:hover .MuiInputLabel-root {
+    color: $white-main;
+  }
 }
 .Auth-content-wrapper {
   min-height: 100vh;
@@ -342,4 +392,12 @@ body {
 
 .Standart-circular-loader {
   color: $white-main;
+}
+.Not-Found-Wrapper {
+  height: 14rem;
+  width: 21rem;
+  transform: translateX(-3%);
+}
+.Not-Found-El {
+  fill: $white-main;
 }

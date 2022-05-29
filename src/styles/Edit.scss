@@ -22,21 +22,6 @@
         font-weight: 700;
     }
 }
-/*
-.Profile-edit-wrapper {
-    > div:first-of-type {
-        margin-top: 1rem;
-    }
-    > div > div:last-of-type {
-        margin-top: 0;
-    }
-    .Profile-edit-main-block {
-        > div {
-            margin: 0;
-        }
-    }
-}
-*/
 .Prof-edit-wrapper {
     background-color: $white-main;
     border-radius: $standart-border-radius;
@@ -86,7 +71,6 @@
     width: 12rem;
     margin: 0 auto;
 }
-/*
 .City-list-hint {
     width: 12rem;
     margin: 0;
@@ -94,7 +78,6 @@
         margin-left: 1.5rem;
     }
 }
-*/
 .Currency-select {
     width: 12rem;
 
@@ -143,9 +126,6 @@
     align-items: center;
     justify-content: space-between;
 }
-.Mail-block {
-    margin-bottom: .5rem;
-}
 .Profile-select {
     width: 12rem;
     * {
@@ -154,6 +134,7 @@
 }
 .Edit-edit-icon {
     color: $green-darker;
+    font-size: 1rem;
 }
 .Edit-input-wrapper {
     .MuiSelect-select {
@@ -168,4 +149,7 @@
     > div {
         margin: 0;
     }
+}
+.Profile-list-settings-margin-bottom {
+    margin-bottom: .5rem;
 }

@@ -39,7 +39,7 @@ function Login() {
             localStorage.setItem('rToken', JSON.stringify(r.data.tokens.refreshToken));
             setResMessage(`Добро пожаловать, ${r.data.username}!`);
             if (errMessage.length) setErrMessage('');
-            const user: User = {authorized: true, id: r.data.userid, name: r.data.username};
+            const user: User = {authorized: true, id: r.data.userid, name: r.data.username, email: ''};
             dispatch(setUserData(user));
             setQueryComplete(true);
             setTimeout(() => {
@@ -59,6 +59,16 @@ function Login() {
           case 404: {
             if (resMessage.length) setResMessage('');
             setErrMessage('Пользователь не найден!');
+            setQueryComplete(true);
+          }; break;
+          case 410: {
+            if (resMessage.length) setResMessage('');
+            setErrMessage('Аккаунт не активирован!');
+            setQueryComplete(true);
+          }; break;
+          case 413: {
+            if (resMessage.length) setResMessage('');
+            setErrMessage('Аккаунт заблокирован!');
             setQueryComplete(true);
           }; break;
           default: {

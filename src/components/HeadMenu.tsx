@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../utils/context';
-import { setUserData } from '../utils/reducer';
+import { setMyProposalsList, setUserData } from '../utils/reducer';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import '../styles/Main.scss';
@@ -25,7 +25,9 @@ function HeadMenu() {
 
     const onLogOutClick = () => {
         localStorage.clear();
-        dispatch(setUserData({ authorized: false, id: 0, name: ""}));
+        dispatch(setUserData({ authorized: false, id: 0, name: "", email: ""}));//Сбросить все личные данные пользователя
+        dispatch(setMyProposalsList([]));//Сбросить список объявлений ползователя
+        navigate('/');
     };
 
     const authBlock = state.userData.authorized ? 

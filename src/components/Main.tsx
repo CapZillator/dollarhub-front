@@ -273,74 +273,67 @@ function Main() {
     let listingsMeta: any = null;
     let searchResultHeader: any = null;
 
-    if (loadDataState || !searchParamsQueryFinished){
-        if (proposalList.length > 0){
-            listingsBlock = proposalList.map((p: any) => {
-                return <div key={p.id} id={p.id} className='Single-proposal' onClick={() => navigate(`/proposals/${p.id}`)}>
-                    <h4 className="Single-proposal-header">{p.location}</h4>
-                    <div className="Single-proposal-body-wrapper">
-                        <div className="In-row-left">
-                            <PaymentsIcon className="Info-icon" fontSize="inherit"/> 
-                            <span>От {formatAmount(p.amountMin)} до {formatAmount(p.amountMax)} {getCurrencyVal(p.currency)}</span>
-                        </div>
-                        <div className="In-row-left">
-                            <CurrencyExchangeIcon className="Info-icon" fontSize="inherit"/> 
-                            <span>1{getCurrencyVal(p.currency)} - {p.exchangeRate}₽</span>
-                        </div>
-                        <div className="In-row-left">
-                            <CalendarMonthIcon className="Info-icon" fontSize="inherit"/> 
-                            <span>{getStringDate(p.date)}</span>
-                        </div>
+    if (proposalList.length > 0){
+        listingsBlock = proposalList.map((p: any) => {
+            return <div key={p.id} id={p.id} className='Single-proposal' onClick={() => navigate(`/proposals/${p.id}`)}>
+                <h4 className="Single-proposal-header">{p.location}</h4>
+                <div className="Single-proposal-body-wrapper">
+                    <div className="In-row-left">
+                        <PaymentsIcon className="Info-icon" fontSize="inherit"/> 
+                        <span>От {formatAmount(p.amountMin)} до {formatAmount(p.amountMax)} {getCurrencyVal(p.currency)}</span>
                     </div>
-                    <div className="Single-proposal-background-sign">
-                    {getCurrencyVal(p.currency)}
+                    <div className="In-row-left">
+                        <CurrencyExchangeIcon className="Info-icon" fontSize="inherit"/> 
+                        <span>1{getCurrencyVal(p.currency)} - {p.exchangeRate}₽</span>
                     </div>
-                </div>;
-            });
-            listingsBlock = <div className="Main-proposals">{listingsBlock}</div>;
-            let nextPage = (state.page.current * adsPerPage < state.page.total) ? 
-                <div onClick={() => onNavPageClick('n')} className="Nav-page-link">
-                    <div>Вперёд</div>
-                    <NavigateNextIcon />
-                </div>: <div></div>;
-            let prevPage = (state.page.current * adsPerPage > adsPerPage) ? 
-                <div onClick={() => onNavPageClick('p')} className="Nav-page-link">
-                    <NavigateBeforeIcon />
-                    <div>Назад</div>
-                </div>: <div></div>;
-            listingsMeta = <div>
-                    <div className="Nav-page-wrapper">
-                        {prevPage}
-                        {nextPage}</div>
-                </div>;
-            searchResultHeader = <div className="Main-select-wrapper">
-                <div className="Proposal-counter">Найдено {state.page.total} предложений(ие)</div>
-                <div>
-                    <FormControl size="small" className="Filter-select">
-                        <InputLabel id="sort-proposals-by-label" sx={{color: "#fff"}}>Сначала</InputLabel>
-                        <Select
-                            labelId="sort-proposals-by-label"
-                            id="sort-proposals-by"
-                            value={sortBy}
-                            label="Сначала"
-                            onChange={onChangeSortBy}
-                            >
-                            <MenuItem value={0}>самые свежие</MenuItem>
-                            <MenuItem value={1}>лучший курс</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <div className="In-row-left">
+                        <CalendarMonthIcon className="Info-icon" fontSize="inherit"/> 
+                        <span>{getStringDate(p.date)}</span>
+                    </div>
+                </div>
+                <div className="Single-proposal-background-sign">
+                {getCurrencyVal(p.currency)}
                 </div>
             </div>;
-        }
-        else {
-            listingsBlock = <div className="Main-proposals-center-wrapper"><p className="No-proposals">Предложений нет</p></div>;
-        }
-    }
-    else listingsBlock = <div className="Main-proposals-center-wrapper">
-            <Box className="Circular-loader-wrapper">
-                <CircularProgress className="Standart-circular-loader"/>
-            </Box>
+        });
+        listingsBlock = <div className="Main-proposals">{listingsBlock}</div>;
+        let nextPage = (state.page.current * adsPerPage < state.page.total) ? 
+            <div onClick={() => onNavPageClick('n')} className="Nav-page-link">
+                <div>Вперёд</div>
+                <NavigateNextIcon />
+            </div>: <div></div>;
+        let prevPage = (state.page.current * adsPerPage > adsPerPage) ? 
+            <div onClick={() => onNavPageClick('p')} className="Nav-page-link">
+                <NavigateBeforeIcon />
+                <div>Назад</div>
+            </div>: <div></div>;
+        listingsMeta = <div>
+                <div className="Nav-page-wrapper">
+                    {prevPage}
+                    {nextPage}</div>
+            </div>;
+        searchResultHeader = <div className="Main-select-wrapper">
+            <div className="Proposal-counter">Найдено {state.page.total} предложений(ие)</div>
+            <div>
+                <FormControl size="small" className="Filter-select Standart-outline-input">
+                    <InputLabel id="sort-proposals-by-label" sx={{color: "#fff"}}>Сначала</InputLabel>
+                    <Select
+                        labelId="sort-proposals-by-label"
+                        id="sort-proposals-by"
+                        value={sortBy}
+                        label="Сначала"
+                        onChange={onChangeSortBy}
+                        >
+                        <MenuItem value={0}>самые свежие</MenuItem>
+                        <MenuItem value={1}>лучший курс</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
         </div>;
+    }
+    else {
+        listingsBlock = <div className="Main-proposals-center-wrapper"><p className="No-proposals">Предложений нет</p></div>;
+    };
     
     let locationHintBlock = null;
     if (locationHint.length){
@@ -358,6 +351,29 @@ function Main() {
     const searchParamsButton = searchParamsQueryFinished ? 
         <Button variant="contained" onClick={onSearchClick} startIcon={<SearchIcon />}>Показать</Button>: 
         <Button variant="contained"  disabled><CircularProgress size="1em" color="primary" className="ButtonLoader" />Показать</Button>;
+    let mainContent = <div className="Center-loader-wrapper">
+            <Box className="Circular-loader-wrapper">
+                <CircularProgress className="Standart-circular-loader"/>
+            </Box>
+        </div>;
+    if (loadDataState || !searchParamsQueryFinished){
+        mainContent = <main className="MainContentWrapper">
+            <div className="Main-search-params-wrapper">
+                <div onClick={toggleDrawer(true)} className="Search-param-icon-wrapper">
+                    <SearchParamsIcon iconClass="Search-param-icon" elClass="Search-param-icon-el"/>
+                </div>
+            </div>
+            <div className="Main-proposals-filter-wrapper">
+                {searchResultHeader}
+            </div>
+            <div className="Main-proposals-wrapper">
+                {listingsBlock}
+            </div>
+            <div className="Main-proposals-meta-wrapper">
+                {listingsMeta}
+            </div>
+        </main>;
+    };
     return (
         <div className="App">
             <Backdrop
@@ -368,22 +384,7 @@ function Main() {
             </Backdrop>
             <HeadMenu />
             <div className="App-content-wrapper">
-                <main className="MainContentWrapper">
-                    <div className="Main-search-params-wrapper">
-                        <div onClick={toggleDrawer(true)} className="Search-param-icon-wrapper">
-                            <SearchParamsIcon iconClass="Search-param-icon" elClass="Search-param-icon-el"/>
-                        </div>
-                    </div>
-                    <div className="Main-proposals-filter-wrapper">
-                        {searchResultHeader}
-                    </div>
-                    <div className="Main-proposals-wrapper">
-                        {listingsBlock}
-                    </div>
-                    <div className="Main-proposals-meta-wrapper">
-                        {listingsMeta}
-                    </div>
-                </main>
+                {mainContent}
                 <Footer />
             </div>
             <SwipeableDrawer

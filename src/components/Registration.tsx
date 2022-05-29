@@ -28,7 +28,7 @@ function Registration() {
   const [ email, setEmail ] = useState<string>('');
   const [ pass, setPass ] = useState<string>('');
   const [ confPass, setConfPass ] = useState<string>('');
-  const [ connectType, setConnectType ] = useState<number>(1);
+  const [ connectType, setConnectType ] = useState<number>(0);
   const [ connectVal, setConnectVal ] = useState<string>('');
   const [ issues, setIssues ] = useState<Array<any>>([]);
   const [ validFields, setValidFields ] = useState<any>({login: 0, email: 0, pass: 0, messenger: 0});
@@ -51,11 +51,11 @@ function Registration() {
             if (issues.length > 0){
               let newIssues = issues.slice();
               let errorIndex = issues.findIndex(e => e.type === 'loginFormat');
-              if (errorIndex !== -1) newIssues.splice(errorIndex);
+              if (errorIndex !== -1) newIssues.splice(errorIndex, 1);
               errorIndex = issues.findIndex(e => e.type === 'ApiQueryError');
-              if (errorIndex !== -1) newIssues.splice(errorIndex);
+              if (errorIndex !== -1) newIssues.splice(errorIndex, 1);
               errorIndex = issues.findIndex(e => e.type === 'loginExists');
-              if (errorIndex !== -1) newIssues.splice(errorIndex);
+              if (errorIndex !== -1) newIssues.splice(errorIndex, 1);
               setIssues(newIssues);
             }
           }
@@ -185,7 +185,7 @@ function Registration() {
     if (errToDel.length > 0){
       let newIssues = issues.slice();
       errToDel.forEach(errorIndex => {
-        newIssues.splice(errorIndex);
+        newIssues.splice(errorIndex, 1);
       })
       setIssues(newIssues);
     };
@@ -219,7 +219,7 @@ function Registration() {
           let errorIndex = issues.findIndex(e => e.type === 'messengerFormat');
           if (errorIndex !== -1){
             let newIssues = issues.slice();
-            newIssues.splice(errorIndex);
+            newIssues.splice(errorIndex, 1);
             setIssues(newIssues);
           }
         }
@@ -246,14 +246,14 @@ function Registration() {
         if (r.isSucces){
           if (r.data.status === 200){
             console.log('User registerred succes');
-            localStorage.setItem('aToken', JSON.stringify(r.data.tokens.accessToken));
-            localStorage.setItem('rToken', JSON.stringify(r.data.tokens.refreshToken));
-            let user: User = {authorized: true, id: r.data.userid, name: r.data.username};
+            //localStorage.setItem('aToken', JSON.stringify(r.data.tokens.accessToken));
+            //localStorage.setItem('rToken', JSON.stringify(r.data.tokens.refreshToken));
+            let user: User = {authorized: false, id: r.data.userid, name: r.data.username, email: r.data.email};
             dispatch(setUserData(user));
             setQueryInProgress(2);
             setResultMessage({type: 1, message: 'Регистрация прошла успешно!'});
             setTimeout(() => {
-              navigate('/');
+              navigate('/confirm');
             }, 1000);
           }
           else {
@@ -369,7 +369,7 @@ function Registration() {
               </FormControl>
             </div>
             <div>
-              <FormControl size="small" className="Standart-select">
+              <FormControl size="small" className="Standart-select Auth-select">
                 <InputLabel id="select-messanger-type">Способ связи</InputLabel>
                 <Select
                   label="Способ связи"
@@ -378,14 +378,14 @@ function Registration() {
                   value={connectType}
                   onChange={(e) => {setConnectType(Number(e.target.value))}}
                 >
-                  <MenuItem value={1}>Telegram</MenuItem>
-                  <MenuItem value={2}>WhatsApp</MenuItem>
-                  <MenuItem value={3}>Signal</MenuItem>
+                  <MenuItem value={0}>Telegram</MenuItem>
+                  <MenuItem value={1}>WhatsApp</MenuItem>
+                  <MenuItem value={2}>Signal</MenuItem>
                 </Select>
               </FormControl>
             </div>
             <div>
-              <TextField id="login-input" label="Никнейм" size="small" value={connectVal}
+              <TextField id="messenger-input" label="Никнейм" size="small" value={connectVal}
                 onChange={onInputMessenger} className="Standart-input" autoComplete="off"/>
             </div>
             {confrirmBlock}

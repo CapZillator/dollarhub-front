@@ -76,7 +76,7 @@ function CreateAd() {
         setLocationHint(findCity(city, state.cityList));
     };
     const onChangeMinAmount = (e: any) => {
-        const amountVal = Number(e.target.value);
+        let amountVal = Number(e.target.value);
         setTimeout(() => {
             if (amountVal > maxAmount) {
                 let err = errors.find(e => e.type === 'invalidAmountProportion');
@@ -95,11 +95,12 @@ function CreateAd() {
                 }
             }
         }, 500);
+        amountVal = amountVal > 99999999 ? 99999999: amountVal;
         if (amountVal > 0) setMinAmount(amountVal);
         else setMinAmount(1);
     };
     const onChangeMaxAmount = (e: any) => {
-        const amountVal = Number(e.target.value);
+        let amountVal = Number(e.target.value);
         setTimeout(() => {
             if (minAmount > amountVal) {
                 let err = errors.find(e => e.type === 'invalidAmountProportion');
@@ -118,6 +119,7 @@ function CreateAd() {
                 }
             }
         }, 500);
+        amountVal = amountVal > 99999999 ? 99999999: amountVal;
         if (amountVal > 0) setMaxAmount(amountVal);
         else setMaxAmount(1);
     };
@@ -163,18 +165,28 @@ function CreateAd() {
                     setReqInProgress(1);
                     fetchData('createProposal', body).then((r: any) => {
                         if (r.isSucces){
-                            //setCityList(r.data.list);
-                            let errIndex = errors.findIndex(e => e.type === 'badRequest');
-                            if (errIndex !== -1){
-                                let newErrors = errors.slice();
-                                newErrors.splice(errIndex);
-                                setErrors(newErrors);
-                            } 
-                            setSuccessMessage('Объявление добавлено успешно!');
-                            setReqInProgress(2);
-                            setTimeout(() => {
-                                navigate('/?type=refresh');
-                            }, 3000);
+                            if (r.data.status === 200){
+                                let errIndex = errors.findIndex(e => e.type === 'badRequest');
+                                if (errIndex !== -1){
+                                    let newErrors = errors.slice();
+                                    newErrors.splice(errIndex);
+                                    setErrors(newErrors);
+                                } 
+                                setSuccessMessage('Объявление добавлено успешно!');
+                                setReqInProgress(2);
+                                setTimeout(() => {
+                                    navigate('/?type=refresh');
+                                }, 3000);
+                            }
+                            else if (r.data.status === 405){
+                                let err = errors.find(e => e.type === 'adsLimit');
+                                if (!err) {
+                                    let newErrors = errors.slice();
+                                    newErrors.push({type: 'adsLimit', message: r.data.message});
+                                    setErrors(newErrors);
+                                };
+                                setReqInProgress(2);
+                            };
                         }
                     }).catch((e) => {
                         console.log(e);
@@ -258,6 +270,7 @@ function CreateAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">1{getCurrencyVal(curType)}</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>
@@ -270,6 +283,7 @@ function CreateAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">От</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>
@@ -282,6 +296,7 @@ function CreateAd() {
                     startAdornment: <InputAdornment position="start" className="Edit-helper-text">До</InputAdornment>,
                 }}
                 className="Edit-input-el"
+                autoComplete="off"
                 size={muiElSize}
             />
         </div>

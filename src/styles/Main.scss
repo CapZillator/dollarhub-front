@@ -13,6 +13,15 @@
         margin: 0 .5rem;
     }
 }
+.Center-loader-wrapper {
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .MainContentWrapper {
     flex: 1 0 auto;
     margin-top: 5rem;
@@ -189,7 +198,7 @@
     padding: .5rem 1.5rem;
     margin: .5rem;
     cursor: pointer;
-    width: 12rem;
+    width: 13.5rem;
     transition: .5s;
 
     &:hover {

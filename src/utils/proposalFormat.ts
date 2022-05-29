@@ -39,11 +39,19 @@ export const getMessengerName = (code: any): string => {
     return result;
 }
 export const formatAmount = (amount: number): string => {
-    let result = String(amount);
-    if (result.length > 3){
-        const tale = result.slice(-3);
-        const head = result.slice(0, result.length - 3);
-        result = `${head} ${tale}`;
+    let source = String(amount);
+    let signQty = source.length;
+    let result = '';
+    while (signQty > 3){
+        const tale = source.slice(-3);
+        source = source.slice(0, source.length - 3);
+        result = result.length ? `${tale} ${result}`: `${tale}`;
+        signQty = signQty - 3;
     }
+    result = `${source} ${result}`;
+    return result;
+}
+export const formatEmail = (email: string): string => {
+    const result = email.length > 16 ? `${email.slice(0, 8)}...${email.slice(-8)}`: email;
     return result;
 }

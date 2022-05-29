@@ -14,6 +14,7 @@ export interface User {
     authorized: boolean;
     id: number;
     name: string;
+    email: string;
 }
 export interface Ad {
     id: number;
@@ -41,7 +42,7 @@ export interface Page {
 }
 
 export const initData: AppState = {
-    userData: { authorized: false, id: 0, name: '' },
+    userData: { authorized: false, id: 0, name: '', email: '' },
     proposalsList: [], 
     cityList: [],
     myProposals: [],

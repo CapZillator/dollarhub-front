@@ -13,6 +13,7 @@ import EditAd from './components/EditAd';
 import CreateAd  from './components/CreateAd';
 import EditList from './components/EditList';
 import LoaderCash from './components/LoaderCash';
+import Confirm from './components/Confirm';
 import { fetchData } from './api/fetch';
 import { AppContext, User, initData, Authors, City } from './utils/context';
 import { appReducer, setUserData, setAuthors, setCitiesList } from './utils/reducer';
@@ -23,7 +24,7 @@ import Backdrop from '@mui/material/Backdrop';
 
 function App() {
   const [state, dispatch] = useReducer(appReducer, initData);
-  const [loadFlags, setLoadFlags] = useState<Array<number>>(new Array(3).fill(0));
+  //const [loadFlags, setLoadFlags] = useState<Array<number>>(new Array(3).fill(0));
   const [authState, setAuthState] = useState<number>(0);
   const [citiesState, setCitiesState] = useState<number>(0);
   const [authorState, setAuthorState] = useState<number>(0);
@@ -47,7 +48,7 @@ function App() {
                 switch (r.data.status){
                   case 200: {
                     console.log(r.data);
-                    let u: User = { authorized: true, id: r.data.userid, name: r.data.username};
+                    let u: User = { authorized: true, id: r.data.userid, name: r.data.username, email: ''};
                       dispatch(setUserData(u));
                       setAuthState(2);
                       console.log('!!! Authorized');
@@ -123,7 +124,7 @@ function App() {
                 console.log('Tokens refreshed!');
                 localStorage.setItem('aToken', JSON.stringify(r.data.tokens.accessToken));
                 localStorage.setItem('rToken', JSON.stringify(r.data.tokens.refreshToken));
-                let u: User = { authorized: true, id: r.data.userid, name: r.data.username};
+                let u: User = { authorized: true, id: r.data.userid, name: r.data.username, email: ''};
                 dispatch(setUserData(u));
                 setAuthState(2);
                 console.log('!!! Authorized');
@@ -138,7 +139,7 @@ function App() {
     >
       <LoaderCash />
   </Backdrop>;
-  if ((citiesState == 2) && (authorState == 2)) content = <BrowserRouter>
+  if ((citiesState === 2) && (authorState === 2)) content = <BrowserRouter>
     <Routes>
       <Route path='/' element={<Main />}/>
       <Route path='/proposals' element={<Proposals />}>
@@ -152,6 +153,7 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/create' element={<CreateAd />} />
       <Route path='/profile' element={<Profile />} />
+      <Route path='/confirm' element={<Confirm />} />
       <Route path='*' element={<NoMatch />} />
     </Routes>
   </BrowserRouter>;

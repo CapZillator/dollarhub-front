@@ -68,76 +68,92 @@ function EditList() {
     };
     const onConfirmDel = () => {
         setDelButtonBlocked(true);
-        let aToken: any = localStorage.getItem('aToken');
-        aToken = aToken ? JSON.parse(aToken): null;
-        const now = Date.now();
-        if (aToken && aToken.expires > now) {
-            fetchDataExtendedUrl('delete', {token: aToken.token}, String(adToDelID)).then((r: any) => {
-                if (r.isSucces){
-                    if (r.data.status === 200){
-                        let newAds = state.myProposals.slice();
-                        const i = newAds.findIndex(a => a.id === adToDelID);
-                        if (i >= 0) {
-                            newAds.splice(i);
-                            dispatch(setMyProposalsList(newAds));
+        const adToDel = state.myProposals.find((ad) => ad.id === adToDelID);
+        if (adToDel) {
+            let aToken: any = localStorage.getItem('aToken');
+            aToken = aToken ? JSON.parse(aToken): null;
+            const now = Date.now();
+            if (aToken && aToken.expires > now) {
+                fetchDataExtendedUrl('delete', {token: aToken.token}, String(`${adToDelID}/${adToDel.author}`)).then((r: any) => {
+                    if (r.isSucces){
+                        if (r.data.status === 200){
+                            let newAds = state.myProposals.slice();
+                            console.log(newAds.length);
+                            const i = newAds.findIndex(a => a.id === adToDelID);
+                            if (i >= 0) {
+                                newAds.splice(i, 1);
+                                console.log(i);
+                                console.log(newAds);
+                                dispatch(setMyProposalsList(newAds));
+                                setAdToDelID(0);
+                            };
                             setAdToDelID(0);
+                            setDelButtonBlocked(false);
+                            handleClose();
                         };
-                        setDelButtonBlocked(false);
-                        handleClose();
-                    };
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
+            };
+        }
+        else {
+            setDelButtonBlocked(false);
+            handleClose();
         };
     }
 
     const delButton = delButtonBlocked ? <Button variant="outlined" disabled size={muiElSize} className="Button-outlined">Да</Button>: 
         <Button variant="outlined" onClick={onConfirmDel} size={muiElSize} className="Button-outlined">Да</Button>;
-    let listingsBlock = <div><Box>
-            <CircularProgress color="inherit"/>
-        </Box></div>;
-    if (state.myProposals.length > 0){
-        let pArray = state.myProposals.slice();
-        let sortFunc = (a: any, b: any) => {
-            if (a.date < b.date) return 1;
-            else if (a.date === b.date) return 0;
-            else return -1;
-        };
-        pArray.sort(sortFunc);
-        const list = pArray.map((p: any, i) => {
-            return <div key={p.id} id={p.id} className="Single-proposal">
-                <div className="Single-proposl-meta">
-                    <div className="Single-proposl-currency">{getCurrencyVal(p.currency)}</div>
-                    <div className="Single-proposl-id">#{p.id}</div>
-                </div>
-                <h4 className="Single-proposal-header">{p.location}</h4>
-                <div className="Single-proposal-body-wrapper">
-                    <div className="In-row-left">
-                        <PaymentsIcon className="Info-icon" fontSize="inherit"/> 
-                        <span>От {formatAmount(p.amountMin)} до {formatAmount(p.amountMax)} {getCurrencyVal(p.currency)}</span>
+    let listingsBlock;
+    if (proposalReq) listingsBlock = <div><Box>
+                            <CircularProgress color="inherit"/>
+                        </Box></div>;
+    else{
+        if (state.myProposals.length > 0){
+            let pArray = state.myProposals.slice();
+            let sortFunc = (a: any, b: any) => {
+                if (a.date < b.date) return 1;
+                else if (a.date === b.date) return 0;
+                else return -1;
+            };
+            pArray.sort(sortFunc);
+            const list = pArray.map((p: any, i) => {
+                return <div key={p.id} id={p.id} className="Single-proposal">
+                    <div className="Single-proposl-meta">
+                        <div className="Single-proposl-currency">{getCurrencyVal(p.currency)}</div>
+                        <div className="Single-proposl-id">#{p.id}</div>
                     </div>
-                    <div className="In-row-left">
-                        <CurrencyExchangeIcon className="Info-icon" fontSize="inherit"/> 
-                        <span>1{getCurrencyVal(p.currency)} - {p.exchangeRate}₽</span>
+                    <h4 className="Single-proposal-header">{p.location}</h4>
+                    <div className="Single-proposal-body-wrapper">
+                        <div className="In-row-left">
+                            <PaymentsIcon className="Info-icon" fontSize="inherit"/> 
+                            <span>От {formatAmount(p.amountMin)} до {formatAmount(p.amountMax)} {getCurrencyVal(p.currency)}</span>
+                        </div>
+                        <div className="In-row-left">
+                            <CurrencyExchangeIcon className="Info-icon" fontSize="inherit"/> 
+                            <span>1{getCurrencyVal(p.currency)} - {p.exchangeRate}₽</span>
+                        </div>
+                        <div className="In-row-left">
+                            <CalendarMonthIcon className="Info-icon" fontSize="inherit"/> 
+                            <span>{getStringDate(p.date)}</span>
+                        </div>
                     </div>
-                    <div className="In-row-left">
-                        <CalendarMonthIcon className="Info-icon" fontSize="inherit"/> 
-                        <span>{getStringDate(p.date)}</span>
-                    </div>
-                </div>
-                <Button variant="contained" startIcon={<EditIcon  />} onClick={() => navigate(`/edit/${p.id}`)} 
-                    size={muiElSize} className="Edit-Button">
-                        Редактировать
-                </Button>
-                <Button variant="contained" startIcon={<DeleteIcon  />} onClick={() => onDelAdClick(p.id)} 
-                    size={muiElSize} className="Edit-Button">
-                        Удалить
-                </Button>
-            </div>;
-        });
-        listingsBlock = <div className="My-proposals">{list}</div>
+                    <Button variant="contained" startIcon={<EditIcon  />} onClick={() => navigate(`/edit/${p.id}`)} 
+                        size={muiElSize} className="Edit-Button">
+                            Редактировать
+                    </Button>
+                    <Button variant="contained" startIcon={<DeleteIcon  />} onClick={() => onDelAdClick(p.id)} 
+                        size={muiElSize} className="Edit-Button">
+                            Удалить
+                    </Button>
+                </div>;
+            });
+            listingsBlock = <div className="My-proposals">{list}</div>
+        }
+        else listingsBlock = <div className="My-proposals">Объявлений нет</div>;
     };
+    
     let mainContent = <Box>
             <CircularProgress color="inherit"/>
         </Box>;

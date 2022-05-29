@@ -1,7 +1,12 @@
+//const apiURL = 'https://api.dollarhub.me/';
+let apiURL = 'http://localhost:4000/';
+
 export const fetchData = async (type: string, body?: any) => {
-    let apiUrl: string = 'http://localhost:4000/';
+    //let apiUrl: string = 'http://localhost:4000/';
+    let apiUrl: string = apiURL;
     let options: any = null;
-    const mode = "cors"
+    const mode = "cors";
+    const origin = "*";
     switch (type){
       case 'checkLogin': {
         apiUrl += 'auth/checklogin';
@@ -9,6 +14,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           mode: mode, // no-cors, *cors, same-origin
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
@@ -21,6 +29,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -32,6 +43,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode,
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -43,6 +57,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -54,6 +71,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -65,6 +85,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -74,14 +97,24 @@ export const fetchData = async (type: string, body?: any) => {
         apiUrl += 'exchange';
         options = {
           method: 'GET',
-          mode: mode 
+          mode: mode,
+          headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'GET',
+            'Access-Control-Request-Headers': 'Content-Type'
+          },
         };
       }; break;
       case 'getCityList': {
         apiUrl += 'citylist';
         options = {
           method: 'GET',
-          mode: mode 
+          mode: mode,
+          headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'GET',
+            'Access-Control-Request-Headers': 'Content-Type'
+          },
         };
       }; break;
       case 'getAuthorData': {
@@ -90,6 +123,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -101,6 +137,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -112,6 +151,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -123,6 +165,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'PUT', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'PUT',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -134,6 +179,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -145,6 +193,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode, 
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -154,7 +205,12 @@ export const fetchData = async (type: string, body?: any) => {
         apiUrl += 'auth/getallauthors';
         options = {
           method: 'GET', 
-          mode: mode
+          mode: mode,
+          headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'GET',
+            'Access-Control-Request-Headers': 'Content-Type'
+          },
         };
       }; break;
       case 'editAuthMessanger': {
@@ -163,6 +219,9 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode,
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -174,6 +233,23 @@ export const fetchData = async (type: string, body?: any) => {
           method: 'POST', 
           mode: mode,
           headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body) 
+        };
+      }; break;
+      case 'activateCode': {
+        apiUrl += 'auth/activate';
+        options = {
+          method: 'POST', 
+          mode: mode,
+          headers: {
+            'Origin': origin,
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'Content-Type',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(body) 
@@ -191,9 +267,10 @@ export const fetchData = async (type: string, body?: any) => {
 }
 
 export const fetchDataExtendedUrl = async (type: string, body?: any, extendedUrl?: string) => {
-  let apiUrl: string = 'http://localhost:4000/';
+  let apiUrl: string = apiURL;
   let options: any = null;
   const mode = "cors";
+  const origin = "*";
   switch (type){
     case 'delete': {
       apiUrl += 'exchange/';
@@ -201,6 +278,9 @@ export const fetchDataExtendedUrl = async (type: string, body?: any, extendedUrl
         method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
         mode: mode, // no-cors, *cors, same-origin
         headers: {
+          'Origin': origin,
+          'Access-Control-Request-Method': 'DELETE',
+          'Access-Control-Request-Headers': 'Content-Type',
           'Content-Type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -211,7 +291,12 @@ export const fetchDataExtendedUrl = async (type: string, body?: any, extendedUrl
       apiUrl += `exchange/`;
       options = {
         method: 'GET',
-        mode: mode 
+        mode: mode,
+        headers: {
+          'Origin': origin,
+          'Access-Control-Request-Method': 'GET',
+          'Access-Control-Request-Headers': 'Content-Type'
+        },
       };
     }; break;
   };

@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../api/fetch';
 import { AppContext } from '../utils/context';
 import { setAuthors } from '../utils/reducer';
 import { getEditError } from '../utils/errors';
-import { getMessengerName } from '../utils/proposalFormat';
-import { findCity } from '../utils/search';
+import { getMessengerName, formatEmail } from '../utils/proposalFormat';
 import HeadMenu from '../components/HeadMenu';
 import Footer from '../components/Footer';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import Backdrop from '@mui/material/Backdrop';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import Select from '@mui/material/Select';
@@ -19,7 +17,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import '../styles/Edit.scss';
@@ -33,18 +30,20 @@ import KeyIcon from '@mui/icons-material/Key';
 import ChatIcon from '@mui/icons-material/Chat';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 
 interface authorData {
     email: string,
     messanger: {
         type: number,
         value: string
-    }
+    },
+    adsCounter: number
 }
 
 function Profile() {
     const {state, dispatch} = useContext(AppContext);
-    const [ aData, setAData ] = useState<authorData>({email: '', messanger: {type: 0, value: ''}});
+    const [ aData, setAData ] = useState<authorData>({email: '', messanger: {type: 0, value: ''}, adsCounter: 0});
     const [ loadState, setLoadState ] = useState<number>(0);
     const [ confirmState, setConfirmState ] = useState<number>(0);
     const [ errors, setErrors ] = useState<Array<any>>([]);
@@ -72,7 +71,8 @@ function Profile() {
                                 messanger: {
                                     type: r.data.data.mainContactType,
                                     value: r.data.data.mainContactVal
-                                }
+                                },
+                                adsCounter: r.data.data.adsCounter
                             };
                             setAData(aDataVal);
                             setLoadState(2);
@@ -108,11 +108,11 @@ function Profile() {
         };
     }
     const onChangeMessangerType = (e: any) => {
-        setAData({email: aData.email, messanger: {type: Number(e.target.value), value: aData.messanger.value}});
+        setAData({email: aData.email, messanger: {type: Number(e.target.value), value: aData.messanger.value}, adsCounter: aData.adsCounter});
     }
     const onChangeMessangerVal = (e: any) => {
         const newVal = e.target.value.trim();
-        setAData({email: aData.email, messanger: {type: aData.messanger.type, value: newVal}});
+        setAData({email: aData.email, messanger: {type: aData.messanger.type, value: newVal}, adsCounter: aData.adsCounter});
         setTimeout(() => {
             if (newVal.length < 1){
                 addErr('invalidMessangerVal');
@@ -268,9 +268,9 @@ function Profile() {
                 Назад
         </Button>;
     let mailBlock = editBlockState === 0 ? <div>
-                        <div className="Edit-inline-left-wrapper Mail-block">
+                        <div className="Edit-inline-left-wrapper Profile-list-settings-margin-bottom">
                             <EmailIcon className="Edit-icon" fontSize="inherit"/> 
-                            {aData.email}
+                            {formatEmail(aData.email)}
                         </div>
                     </div>: null;
     
@@ -289,6 +289,10 @@ function Profile() {
             savePass = <Button variant="contained" startIcon={<SaveIcon />} onClick={onSavePass} size={muiElSize} disabled>Сохранить</Button>
         }; break;
     }
+    let counterBlock: any = <div className="Edit-inline-left-wrapper Profile-list-settings-margin-bottom">
+                <LibraryBooksIcon className="Edit-icon" fontSize="inherit"/>
+                Объявлений {aData.adsCounter}/4
+            </div>;
     let messangerBlock: any = <div className="Edit-inline-space-between">
             <div className="Edit-inline-left-wrapper">
                 <ChatIcon className="Edit-icon" fontSize="inherit"/>
@@ -340,6 +344,7 @@ function Profile() {
                 {cancelButton}
             </div>
             </div>;
+        counterBlock = null;
         mailBlock = null;
         passBlock = null;
     }
@@ -422,6 +427,7 @@ function Profile() {
                     {cancelButton}
                 </div>
             </div>;
+        counterBlock = null;
         mailBlock = null;
         messangerBlock = null;
     };
@@ -439,6 +445,7 @@ function Profile() {
                                         <AccountCircleIcon className="Prof-header-icon" fontSize="inherit"/>
                                         <h1>{state.userData.name}</h1>
                                 </div>
+                                {counterBlock}
                                 {mailBlock}
                                 {messangerBlock}
                                 {passBlock}
