@@ -1,5 +1,5 @@
 //const apiURL = 'https://api.dollarhub.me/';
-let apiURL = 'http://localhost:4000/';
+let apiURL = 'https://api.dollarhub.me/';
 
 export const fetchData = async (type: string, body?: any) => {
     //let apiUrl: string = 'http://localhost:4000/';
